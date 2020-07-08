@@ -5,7 +5,7 @@ import './App.css';
 export default class App extends Component {
   constructor(props) {
     super(props);
-    this.handleDayClick = this.handleDayClick.bind(this);
+
     this.state = {
       selectedDate: new Date(),
     }
@@ -22,9 +22,8 @@ export default class App extends Component {
     );
   }
 
-  handleDayClick(newDay) {
+  handleDayClick = (newDay) => {
     const { selectedDate } = this.state;
-    console.log(newDay);
 
     this.setState({
       selectedDate: new Date(

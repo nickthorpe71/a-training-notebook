@@ -24,6 +24,11 @@
   color: #fff;
 }
 
+.day-hovering{
+  background: #f2f2f2;
+  border: 1px solid #f2f2f2;
+}
+
 .empty-state-day{
   display: block;
   flex: 1 0 0%;

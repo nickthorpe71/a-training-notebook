@@ -6,7 +6,10 @@ import './Month.css'
 export default class Month extends React.Component {
   constructor(props) {
     super(props);
-    this.renderWeek = this.renderWeek.bind(this);
+
+    this.state = {
+      hoveredDate: null,
+    }
   }
 
   render() {
@@ -52,8 +55,9 @@ export default class Month extends React.Component {
     )
   }
 
-  renderWeek(fullDate, dayIndex) {
+  renderWeek = (fullDate, dayIndex) => {
     const { onDayClick } = this.props;
+    const { hoverDate } = this.state;
     if (fullDate == null) {
       return <Day key={dayIndex} />
     }
@@ -65,9 +69,25 @@ export default class Month extends React.Component {
         fullDate={fullDate}
         onClick={onDayClick} //this is prop drilling so will need to switch to context
         selected={date === this.props.date}
+        hovering={date === hoverDate}
+        onMouseEnter={this.handleMouseEnter}
+        onMouseLeave={this.handleMouseLeave}
       />
     )
   }
+
+  handleMouseEnter = (date) => {
+    this.setState({
+      hoverDate: date,
+    })
+  }
+
+  handleMouseLeave = () => {
+    this.setState({
+      hoverDate: null,
+    })
+  }
+
 }
 
 //returns only the first three letters of the weekday title
@@ -104,7 +124,6 @@ function getWeeksForMonth(month, year) {
     currentWeek.push(null);
   }
 
-  console.log(weeks);
   return weeks;
 
 }
