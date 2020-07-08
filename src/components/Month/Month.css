@@ -1,3 +1,7 @@
 .weekday-container{
   display: flex;
 }
+
+.week{
+  display: flex;
+}
