@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom'
 import Context from './Context';
-import Calendar from './components/MainView/Calendar/Calendar.js';
+import MainView from './components/MainView/MainView';
+import WorkoutView from './components/WorkoutView/WorkoutView';
+import SignUpView from './components/SignUpView/SignUpView';
+import LoginView from './components/LoginView/LoginView';
+import LandingView from './components/LandingView/LandingView';
+import HelpView from './components/HelpView/HelpView';
+import BurgerMenu from './components/Nav/BurgerMenu';
 import './App.css';
 
 export default class App extends Component {
@@ -21,12 +27,37 @@ export default class App extends Component {
     return (
       <Context.Provider value={value}>
         <div className="App">
-          <header class="header">
+          <header className="header">
             <Link to='/'>
-              <h1 class="logo">a training notebook</h1>
+              <h1 className="logo">a training notebook</h1>
             </Link>
-            <button class="burger-menu">burger</button>
+            <BurgerMenu />
           </header>
+          <section className="view">
+            <Route
+              exact
+              path="/"
+              component={MainView} />
+            <Route
+              exact
+              path="/signup"
+              component={SignUpView} />
+            <Route
+              exact
+              path="/login"
+              component={LoginView} />
+            <Route
+              path="/workout/:workoutId"
+              component={WorkoutView} />
+            <Route
+              exact
+              path="/landing"
+              component={LandingView} />
+            <Route
+              exact
+              path="/help"
+              component={HelpView} />
+          </section>
         </div>
       </Context.Provider>
     );
