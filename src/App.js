@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import Calendar from './components/Calendar/Calendar.js';
+import { Route, Link } from 'react-router-dom'
+import Context from './Context';
+import Calendar from './components/MainView/Calendar/Calendar.js';
 import './App.css';
 
 export default class App extends Component {
@@ -12,13 +14,21 @@ export default class App extends Component {
   }
 
   render() {
-    const { selectedDate } = this.state;
+    const value = {
+      selectedDate: this.state.selectedDate,
+      onDayClick: this.handleDayClick
+    }
     return (
-      <div className="App">
-        <div className="calendar">
-          <Calendar fullDate={selectedDate} onDayClick={this.handleDayClick} />
+      <Context.Provider value={value}>
+        <div className="App">
+          <header class="header">
+            <Link to='/'>
+              <h1 class="logo">a training notebook</h1>
+            </Link>
+            <button class="burger-menu">burger</button>
+          </header>
         </div>
-      </div>
+      </Context.Provider>
     );
   }
 

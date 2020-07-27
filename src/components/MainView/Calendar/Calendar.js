@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+import Context from '../../../Context';
 import Month from '../Month/Month.js';
 import './Calendar.css'
 
 export default class Calendar extends Component {
+  static contextType = Context;
+
   render() {
-    const { fullDate, onDayClick } = this.props
+    const { selectedDate, onDayClick } = this.context;
 
     const months = [
       "January",
@@ -20,9 +23,9 @@ export default class Calendar extends Component {
       "November",
       "December"];
 
-    const dateNumber = fullDate.getDate();
-    const monthNumber = fullDate.getMonth();
-    const yearNumber = fullDate.getFullYear();
+    const dateNumber = selectedDate.getDate();
+    const monthNumber = selectedDate.getMonth();
+    const yearNumber = selectedDate.getFullYear();
     const monthName = getMonthName(monthNumber);
 
     function getMonthName(index) {
