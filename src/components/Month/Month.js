@@ -46,12 +46,12 @@ export default class Month extends React.Component {
     });
 
     return (
-      <React.Fragment>
+      <>
         <div className="weekday-container">
           {weekdaysMarkup}
         </div>
         {weeksMarkup}
-      </React.Fragment>
+      </>
     )
   }
 
