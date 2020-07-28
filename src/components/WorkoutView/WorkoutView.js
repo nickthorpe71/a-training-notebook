@@ -69,6 +69,26 @@ export default class WorkoutView extends React.Component {
             onChange={this.handleChange}
             workout={this.state.currentWorkout}
           />
+          <div>
+            <label htmlFor="numSetsPer">Sets</label>
+            <input
+              name="numSetsPer"
+              type="number"
+              className="workout-num-sets"
+              placeholder={this.state.numSetsPer}
+              defaultValue={this.state.numSetsPer}
+              onChange={this.handleChange}
+            />
+            <label htmlFor="numExercises">Exercises</label>
+            <input
+              name="numExercises"
+              type="number"
+              className="workout-num-exercises"
+              placeholder={this.state.numExercises}
+              defaultValue={this.state.numExercises}
+              onChange={this.handleChange}
+            />
+          </div>
           <ExerciseTable
             onChange={this.handleChange}
             sets={this.state.numSetsPer}
