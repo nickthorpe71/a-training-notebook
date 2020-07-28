@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Day.css'
 
 export default function Day(props) {
@@ -21,7 +22,6 @@ export default function Day(props) {
       onClick={props.onClick.bind(this, date)}
       onMouseEnter={props.onMouseEnter.bind(this, date)}
       onMouseLeave={props.onMouseLeave}
-
     >
       {date}
     </button>

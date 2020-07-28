@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Context from '../../../Context';
+import Context from '../../../MainContext';
 import Month from '../Month/Month.js';
 import './Calendar.css'
 

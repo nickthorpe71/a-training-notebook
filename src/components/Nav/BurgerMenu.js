@@ -1,72 +1,55 @@
-import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
-import HamburgerMenu from 'react-hamburger-menu';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { slide as Menu } from 'react-burger-menu';
+import TokenService from '../../services/token-service'
+import './BurgerMenu.css';
 
-export default class BurgerMenu extends Component {
-  constructor() {
-    super()
-    this.state = {
-      open: false,
-      hideOrShowHambugerDropDown: 'nav'
-    }
-  }
+export default function BurgerMenu(props) {
 
-  handleClick = () => {
-    this.setState({ open: !this.state.open });
-  }
-
-  displayHamburgerMenu = () => {
+  function renderLogoutLink() {
     return (
-      <div className="burger-icon">
-        <HamburgerMenu
-          isOpen={this.state.open}
-          menuClicked={this.handleClick.bind(this)}
-          width={30}
-          height={25}
-          strokeWidth={2}
-          rotate={0}
-          color='black'
-          borderRadius={0}
-          animationDuration={0.75}
-        />
+      <div className='Header__logged-in'>
+        <Link
+          onClick={this.handleLogoutClick}
+          to='/login'>
+          Logout
+        </Link>
       </div>
     )
   }
 
-  // displayNavBar = () => {
-  //   return (
-  //     <ul className='nav'>
-  //       <li className='nav-link'><NavLink to='/' >Home</NavLink></li>
-  //       <li className='nav-link'><NavLink to='/about'>About John Williams</NavLink></li>
-  //       <li className='nav-link'><NavLink to='/criminalDefence'>Criminal Defence</NavLink></li>
-  //       <li className='nav-link'><NavLink to='/DUIS'>DUIS</NavLink></li>
-  //       <li className='nav-link'><NavLink to='/personalInjury'>Personal Personal Injury</NavLink></li>
-  //       <li className='nav-link'><NavLink to='/contact'>Contact</NavLink></li>
-  //     </ul>
-  //   )
-  // }
-
-  displayMobileMenu = () => {
+  function renderLoginLink() {
     return (
-      <ul className='hamburgerDropDown'>
-        <li className='nav-link'><NavLink to='/' >Home</NavLink></li>
-        <li className='nav-link'><NavLink to='/about'>About John Williams</NavLink></li>
-        <li className='nav-link'><NavLink to='/criminalDefence'>Criminal Defence</NavLink></li>
-        <li className='nav-link'><NavLink to='/DUIS'>DUIS</NavLink></li>
-        <li className='nav-link'><NavLink to='/personalInjury'>Personal Personal Injury</NavLink></li>
-        <li className='nav-link'><NavLink to='/contact'>Contact</NavLink></li>
-      </ul>
+      <div className='Header__not-logged-in'>
+        <Link
+          to='/login'>
+          Log in
+        </Link>
+        <Link
+          to='/signup'>
+          Sign up
+        </Link>
+      </div>
     )
   }
 
-  render() {
-    return (
-      <div className='navbar'>
-        {this.state.open ? this.displayMobileMenu() : null}
-        {this.displayHamburgerMenu()}
-      </div>
-    );
-  }
-}
+  return (
+    <Menu {...props}>
+      <Link
+        // onClick={this.handleLogoutClick}
+        to='/'>
+        Home
+      </Link>
 
+      {TokenService.hasAuthToken()
+        ? renderLogoutLink()
+        : renderLoginLink()}
 
+      <Link
+        // onClick={this.handleHelpClick}
+        to='/help'>
+        Help
+      </Link>
+    </Menu>
+  );
+};
