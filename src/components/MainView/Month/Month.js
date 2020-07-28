@@ -56,7 +56,6 @@ export default class Month extends React.Component {
   }
 
   renderWeek = (fullDate, dayIndex) => {
-    const { onDayClick } = this.props;
     const { hoverDate } = this.state;
     if (fullDate == null) {
       return <Day key={dayIndex} />
@@ -67,7 +66,6 @@ export default class Month extends React.Component {
       <Day
         key={dayIndex}
         fullDate={fullDate}
-        onClick={onDayClick} //this is prop drilling so will need to switch to context
         selected={date === this.props.date}
         hovering={date === hoverDate}
         onMouseEnter={this.handleMouseEnter}

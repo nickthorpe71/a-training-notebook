@@ -40,7 +40,6 @@ export default class Calendar extends Component {
             date={dateNumber}
             month={monthNumber}
             year={yearNumber}
-            onDayClick={onDayClick} //this seems to be prop drilling so will likely need context
           />
         </div>
       </div>

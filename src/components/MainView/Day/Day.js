@@ -1,8 +1,10 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react';
+import Context from '../../../MainContext';
 import './Day.css'
 
 export default function Day(props) {
+  const context = useContext(Context);
+
   if (props.fullDate == null) {
     return <div className="empty-state-day" />
   }
@@ -19,7 +21,7 @@ export default function Day(props) {
   return (
     <button
       className={className}
-      onClick={props.onClick.bind(this, date)}
+      onClick={context.handleDayClick.bind(this, date)}
       onMouseEnter={props.onMouseEnter.bind(this, date)}
       onMouseLeave={props.onMouseLeave}
     >

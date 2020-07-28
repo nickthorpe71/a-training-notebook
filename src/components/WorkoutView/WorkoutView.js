@@ -13,7 +13,20 @@ export default class WorkoutView extends React.Component {
       workoutTitle: '',
       workoutTime: '',
       workoutDate: new Date(),
-      currentWorkout: {}
+      currentWorkout: {},
+      //add exercises array
+      exercises: [
+        {
+          title: '',
+          sets: [
+            {
+              setNum: 1,
+              weight: '',
+              reps: 1,
+            }
+          ]
+        }
+      ]
     };
   }
 
