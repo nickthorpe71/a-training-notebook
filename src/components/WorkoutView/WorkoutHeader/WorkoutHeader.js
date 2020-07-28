@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import Context from '../../../MainContext';
 import './WorkoutHeader.css';
 
 export default function WorkoutHeader(props) {
 
   const date = new Date();
+  const context = useContext(Context);
 
   const currentDate = date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString().padStart(2, 0) +
     '-' + date.getDate().toString().padStart(2, 0);
@@ -30,7 +32,7 @@ export default function WorkoutHeader(props) {
           className="workout-view-time-date"
           placeholder="time"
           onChange={props.onChange}
-          value={currentTime}
+          value={currentTime} //need to adjust this to consider editing
         />
         <label htmlFor="workoutDate"></label>
         <input

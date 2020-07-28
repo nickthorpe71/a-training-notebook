@@ -14,6 +14,7 @@ export default function ExerciseTable(props) {
         exerciseNumber={i}
         onChange={props.onChange}
         sets={props.sets}
+        workout={props.workout}
       />
     );
   }

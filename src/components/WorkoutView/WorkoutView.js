@@ -1,4 +1,5 @@
 import React from 'react';
+import Context from '../../MainContext';
 import WorkoutHeader from './WorkoutHeader/WorkoutHeader'
 import ExerciseTable from './ExerciseTable/ExerciseTable'
 import './WorkoutView.css';
@@ -12,9 +13,34 @@ export default class WorkoutView extends React.Component {
       workoutTitle: '',
       workoutTime: '',
       workoutDate: new Date(),
-
+      currentWorkout: {}
     };
   }
+
+  static contextType = Context;
+
+  componentDidMount() {
+    if (this.context.editing) {
+      const currentWorkout = this.context.matchingWorkouts.find(workout => workout.workoutId == this.props.match.params.workoutId);
+      this.setState({
+        numSetsPer: currentWorkout.numSetsPer,
+        numExercises: currentWorkout.numExercises,
+        workoutTitle: currentWorkout.workoutTitle,
+        workoutTime: currentWorkout.workoutTime,
+        workoutDate: currentWorkout.workoutDate,
+        currentWorkout: currentWorkout
+      })
+    }
+  }
+
+  getNotes = () => {
+    return this.state.currentWorkout.notes;
+  }
+
+  handlieBackButton = () => {
+    console.log(this.getNotes());
+  }
+
 
   handleChange = (event) => {
     event.preventDefault();
@@ -39,15 +65,23 @@ export default class WorkoutView extends React.Component {
           id="exercise-form"
           onSubmit={e => this.handleSubmit(e)}
         >
-          <WorkoutHeader onChange={this.handleChange} />
+          <WorkoutHeader
+            onChange={this.handleChange}
+            workout={this.state.currentWorkout}
+          />
           <ExerciseTable
             onChange={this.handleChange}
             sets={this.state.numSetsPer}
             exercises={this.state.numExercises}
+            workout={this.state.currentWorkout}
           />
           <section className="workout-view-footer">
             <div>
-              <button className="workout-view-back">back</button>
+              <button
+                className="workout-view-back"
+                onClick={this.handlieBackButton}
+              >back
+              </button>
               <button className="lit-button">save</button>
             </div>
             <textarea
@@ -56,6 +90,7 @@ export default class WorkoutView extends React.Component {
               cols="30"
               rows="10"
               onChange={this.handleChange}
+              value={this.getNotes()}
             ></textarea>
           </section>
         </form>

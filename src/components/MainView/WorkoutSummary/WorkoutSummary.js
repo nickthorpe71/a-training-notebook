@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom'
 import Context from '../../../MainContext';
 
 export default function MainView(props) {
@@ -17,11 +18,15 @@ export default function MainView(props) {
   return (
     <li>
       <div className="workout-preview-title-container">
-        <h3 className="workout-preview-title">{workout.workoutTitle}</h3>
+        <Link to={`/workout/${workout.workoutId}`}>
+          <h3 className="workout-preview-title">{workout.workoutTitle}</h3>
+        </Link>
         <p className="workout-preview-time">{workout.workoutTime}</p>
       </div>
       <p className="workout-preview-description">
-        {exerciseList()}
+        <ul>
+          {exerciseList()}
+        </ul>
       </p>
     </li>
   );

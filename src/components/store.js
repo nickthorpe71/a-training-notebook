@@ -1,8 +1,10 @@
 const store = [
   {
+    workoutId: 1,
     workoutDate: new Date('2020/7/28'),
     numSetsPer: 3,
     numExercises: 2,
+    notes: 'asdas as asdasas asd agfdshds df dsf hsdfh sd fhsd fhhdfs dfhsdfh',
     workoutTime: '4:18PM',
     workoutTitle: 'Strength',
     userId: 24,
@@ -22,9 +24,11 @@ const store = [
     set2_3reps: '5',
   },
   {
+    workoutId: 2,
     workoutDate: new Date('2020/7/27'),
     numSetsPer: 3,
     numExercises: 2,
+    notes: 'asdas as asdasas asd agfdshds df dsf hsdfh sd fhsd fhhdfs dfhsdfh',
     workoutTime: '9:38AM',
     workoutTitle: 'Calisthenics',
     userId: 12,

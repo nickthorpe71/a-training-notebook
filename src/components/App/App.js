@@ -18,6 +18,7 @@ export default class App extends Component {
     this.state = {
       selectedDate: new Date(),
       matchingWorkouts: [],
+      editing: false,
     }
   }
 
@@ -25,6 +26,7 @@ export default class App extends Component {
     const value = {
       selectedDate: this.state.selectedDate,
       matchingWorkouts: this.state.matchingWorkouts,
+      editing: this.state.editing,
       onDayClick: this.handleDayClick
     }
     return (
@@ -71,6 +73,8 @@ export default class App extends Component {
     const { selectedDate } = this.state;
     let matchingWorkouts = [];
 
+    console.log('called handle day click')
+
     const newFullDate = new Date(
       selectedDate.getFullYear(),
       selectedDate.getMonth(), //this will need to change to desired month if we want to allow month navigation
@@ -91,7 +95,8 @@ export default class App extends Component {
 
     this.setState({
       selectedDate: newFullDate,
-      matchingWorkouts: matchingWorkouts
+      matchingWorkouts: matchingWorkouts,
+      editing: true,
     });
   }
 }
