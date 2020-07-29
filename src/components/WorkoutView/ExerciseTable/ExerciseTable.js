@@ -20,11 +20,13 @@ export default function ExerciseTable(props) {
   }
 
   return (
-    <table className="workout-view-exercises">
-      <ExerciseTableHeader sets={props.sets} />
-      <tbody>
-        {exerciseRows}
-      </tbody>
-    </table>
+    <div className="exercise-table-container">
+      <table className="workout-view-exercises">
+        <ExerciseTableHeader sets={props.sets} />
+        <tbody>
+          {exerciseRows}
+        </tbody>
+      </table>
+    </div>
   );
 }

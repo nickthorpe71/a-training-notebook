@@ -6,6 +6,11 @@ import './Calendar.css'
 export default class Calendar extends Component {
   static contextType = Context;
 
+  componentDidMount() {
+    const date = new Date().getDate();
+    this.context.handleDayClick(date);
+  }
+
   render() {
     const { selectedDate, onDayClick } = this.context;
 

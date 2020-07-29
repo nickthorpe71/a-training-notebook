@@ -8,8 +8,8 @@ export default class WorkoutView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      numSetsPer: 5,
-      numExercises: 8,
+      numSetsPer: 4,
+      numExercises: 6,
       workoutTitle: '',
       workoutTime: '',
       workoutDate: new Date(),
@@ -32,8 +32,9 @@ export default class WorkoutView extends React.Component {
 
   static contextType = Context;
 
-  componentDidMount() {
+  componentWillMount() {
     if (this.context.editing) {
+      //pull from database instead of from context
       const currentWorkout = this.context.matchingWorkouts.find(workout => workout.workoutId == this.props.match.params.workoutId);
       this.setState({
         numSetsPer: currentWorkout.numSetsPer,

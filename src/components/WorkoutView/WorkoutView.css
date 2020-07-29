@@ -67,6 +67,10 @@
   padding: 10px;
 }
 
+.exercise-table-container{
+  overflow: scroll;
+}
+
 .exercise-col{
   width: 23%;
 }
@@ -76,12 +80,15 @@
 }
 
 .set-input{
-  width: 100%;
   font-size: 1rem;
+  text-align: center;
+  min-width: 4.5rem;
+  max-width: 4.5rem;
 }
 
 .exercise-input{
   width: 86%;
   font-size: 1.2rem;
-  padding: 10px;
+  padding: 0.5em;
+  min-width: 8rem;
 }
