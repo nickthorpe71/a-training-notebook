@@ -1,5 +1,6 @@
 import React from 'react';
 import './SignUpView.css';
+import { Link } from 'react-router-dom';
 import TokenService from '../../services/token-service';
 import AuthApiService from '../../services/auth-api-service';
 
@@ -24,7 +25,13 @@ export default function SignUpView(props) {
         </section>
         <p>By creating an account you agree to our <a href="#">Terms Privacy</a>.</p>
         <section>
-          <button type="button" className="unlit-button">Cancel</button>
+          <Link to='/landing'>
+            <button
+              type="button"
+              className="unlit-button"
+            >Cancel
+            </button>
+          </Link>
           <button type="submit" className="lit-button">Continue</button>
         </section>
       </div>

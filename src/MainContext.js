@@ -8,6 +8,8 @@ export default MainContext;
 
 export class MainProvider extends Component {
   state = {
+    username: '',
+    email: '',
     loggedIn: TokenService.hasAuthToken(),
     registered: TokenService.hasAuthToken(),
     error: null,
@@ -16,8 +18,12 @@ export class MainProvider extends Component {
     editing: false,
   };
 
-  saveUsername = (username) => {
-    this.setState({ username });
+  handleSetError = (error) => {
+    this.setState({ error });
+  }
+
+  saveUserInfo = (username, email) => {
+    this.setState({ username, email });
   };
 
   handleLoginState = (isLoggedIn) => {
@@ -73,7 +79,7 @@ export class MainProvider extends Component {
       handleDayClick: this.handleDayClick,
       handleLoginState: this.handleLoginState,
       handleRegisteredState: this.handleRegisteredState,
-      saveUsername: this.saveUsername,
+      saveUserInfo: this.saveUserInfo,
     };
     return (
       <MainContext.Provider value={value}>
