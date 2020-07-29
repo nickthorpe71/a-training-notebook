@@ -14,19 +14,19 @@ export default function Set(props) {
     <td className="set-col">
       <div>
         <div>
-          <label htmlFor="weight"></label>
+          <label htmlFor={`weight${props.exerciseNumber}_${props.setNumber}`}></label>
           <input
             className="set-input"
-            name={`weight${props.exerciseNumber + 1}_${props.setNumber + 1}`}
+            name={`weight${props.exerciseNumber}_${props.setNumber}`}
             type="text" placeholder={placeholderWeight}
             onChange={props.onChange}
           />
         </div>
         <div>
-          <label htmlFor="reps"></label>
+          <label htmlFor={`reps${props.exerciseNumber}_${props.setNumber}`}></label>
           <input
             className="set-input"
-            name={`reps${props.exerciseNumber + 1}_${props.setNumber + 1}`}
+            name={`reps${props.exerciseNumber}_${props.setNumber}`}
             type="text" placeholder={placeholderReps}
             onChange={props.onChange}
           />

@@ -25,10 +25,10 @@ export default function Exercise(props) {
   return (
     <tr className="exercise-row">
       <td className="exercise-col">
-        <label htmlFor="exercise"></label>
+        <label htmlFor={`exercise${props.exerciseNumber}`}></label>
         <input
           className="exercise-input"
-          name={`exercise${props.exerciseNumber + 1}`}
+          name={`exercise${props.exerciseNumber}`}
           type="text" placeholder={exercisePalceholder}
           onChange={props.onChange} />
       </td>

@@ -14,20 +14,43 @@ export default class WorkoutView extends React.Component {
       workoutTime: '',
       workoutDate: new Date(),
       currentWorkout: {},
-      //add exercises array
-      exercises: [
-        {
-          title: '',
-          sets: [
-            {
-              setNum: 1,
-              weight: '',
-              reps: 1,
-            }
-          ]
-        }
-      ]
     };
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+
+    const workoutObj = {
+      title: this.state.workoutTitle,
+      numExercises: this.state.numExercises,
+      numSetsPer: this.state.numSetsPer,
+      time: this.state.workoutTime,
+      date: this.state.workoutDate,
+      exercises: []
+    }
+
+    for (const [key, value] of Object.entries(this.state)) {
+      if (key.includes('exercise')) {
+        // console.log(key, key.charAt(8));
+        const newExercise = {
+          title: value,
+          sets: []
+        }
+        workoutObj.exercises.push(newExercise);
+      }
+      if (key.includes('weight')) {
+        const newSet = {
+          setNum: key.charAt(8),
+          weight: value,
+          reps: 0,
+        }
+        workoutObj.exercises[key.charAt(6)].sets.push(newSet);
+      }
+      if (key.includes('reps')) {
+        workoutObj.exercises[key.charAt(4)].sets[key.charAt(6)].reps = value;
+      }
+    }
+    console.log(workoutObj)
   }
 
   static contextType = Context;
@@ -64,11 +87,6 @@ export default class WorkoutView extends React.Component {
       ...this.state,
       [event.target.name]: value
     });
-  }
-
-  handleSubmit = (event) => {
-    event.preventDefault();
-    console.log(this.state);
   }
 
   render() {
