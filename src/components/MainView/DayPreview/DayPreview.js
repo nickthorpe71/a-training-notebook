@@ -7,8 +7,6 @@ export default function DayPreview(props) {
 
   const context = useContext(Context);
 
-  console.log(context.selectedDate);
-
   const day = [];
   day[0] = "Sun";
   day[1] = "Mon";
@@ -18,16 +16,13 @@ export default function DayPreview(props) {
   day[5] = "Fri";
   day[6] = "Sat";
 
-  const todaysDate = `${context.selectedDate.getMonth()}/${context.selectedDate.getDate()}`
+  const todaysDate = `${context.selectedDate.getMonth() + 1}/${context.selectedDate.getDate()}`
   const displayDate = day[context.selectedDate.getDay()];
 
   function renderWorkouts() {
     const { matchingWorkouts = [] } = context;
-
     return matchingWorkouts.map((workout, index) =>
-      <li>
-        <WorkoutSummary key={index} workoutNum={index} />
-      </li>
+      <WorkoutSummary key={index} workoutTitle={workout.title} workoutId={workout.id} />
     );
   }
 

@@ -1,5 +1,6 @@
-import React, { Component } from "react";
-import TokenService from "./services/token-service";
+import React, { Component } from 'react';
+import TokenService from './services/token-service';
+import WorkoutsApiService from './services/workouts-api-service';
 import store from './components/store';
 
 const MainContext = React.createContext({})
@@ -40,7 +41,6 @@ export class MainProvider extends Component {
 
   handleDayClick = (newDay) => {
     const { selectedDate } = this.state;
-    let matchingWorkouts = [];
 
     const newFullDate = new Date(
       selectedDate.getFullYear(),
@@ -48,23 +48,17 @@ export class MainProvider extends Component {
       newDay
     );
 
-    //search database for all workouts with newFullDate
-    store.store.forEach(workout => {
-      const date1 = workout.workoutDate;
-      date1.setHours(0, 0, 0, 0);
-      const date2 = newFullDate;
-      date2.setHours(0, 0, 0, 0);
+    const searchDate = `${selectedDate.getFullYear()}-${selectedDate.getMonth() + 1}-${newDay}`
+    console.log(searchDate)
 
-      if (date1.getDate() === date2.getDate()) {
-        matchingWorkouts.push(workout);
-      }
-    });
-
-    this.setState({
-      selectedDate: newFullDate,
-      matchingWorkouts: matchingWorkouts,
-      editing: true,
-    });
+    WorkoutsApiService.getWorkoutsByDate(searchDate)
+      .then((res) => {
+        this.setState({
+          selectedDate: newFullDate,
+          matchingWorkouts: res,
+          editing: true,
+        });
+      })
   }
 
   render() {

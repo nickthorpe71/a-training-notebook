@@ -2,6 +2,7 @@ import React from 'react';
 import Context from '../../MainContext';
 import WorkoutHeader from './WorkoutHeader/WorkoutHeader'
 import ExerciseTable from './ExerciseTable/ExerciseTable'
+import TokenService from '../../services/token-service'
 import './WorkoutView.css';
 
 export default class WorkoutView extends React.Component {
@@ -12,6 +13,7 @@ export default class WorkoutView extends React.Component {
       numExercises: 6,
       workoutTitle: '',
       workoutTime: '',
+      notes: '',
       workoutDate: new Date(),
       currentWorkout: {},
     };
@@ -21,9 +23,9 @@ export default class WorkoutView extends React.Component {
     event.preventDefault();
 
     const workoutObj = {
+      user_id: TokenService.getUserId,
       title: this.state.workoutTitle,
-      numExercises: this.state.numExercises,
-      numSetsPer: this.state.numSetsPer,
+      notes: this.state.notes,
       time: this.state.workoutTime,
       date: this.state.workoutDate,
       exercises: []

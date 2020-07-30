@@ -8,14 +8,6 @@ export default function MainView(props) {
 
   const context = useContext(Context);
 
-  let workoutList = [];
-
-  context.matchingWorkouts.forEach(workout => {
-    workoutList.push(
-
-    )
-  });
-
   return (
     <div className="main-content">
       <section className="calendar">
