@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import Context from '../../../MainContext';
+
 import './Day.css'
 
 export default function Day(props) {
@@ -26,6 +27,9 @@ export default function Day(props) {
       onMouseLeave={props.onMouseLeave}
     >
       {date}
+      <div>
+        {props.dots[date]}
+      </div>
     </button>
   );
 }

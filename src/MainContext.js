@@ -49,7 +49,6 @@ export class MainProvider extends Component {
     );
 
     const searchDate = `${selectedDate.getFullYear()}-${selectedDate.getMonth() + 1}-${newDay}`
-    console.log(searchDate)
 
     WorkoutsApiService.getWorkoutsByDate(searchDate)
       .then((res) => {

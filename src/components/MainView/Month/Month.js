@@ -1,7 +1,10 @@
 import React from 'react';
 import Weekday from '../Weekday/Weekday'
+import WorkoutsApiService from '../../../services/workouts-api-service';
 import Day from '../Day/Day'
+import Context from '../../../MainContext';
 import './Month.css'
+import { isCompositeComponent } from 'react-dom/test-utils';
 
 export default class Month extends React.Component {
   constructor(props) {
@@ -9,7 +12,38 @@ export default class Month extends React.Component {
 
     this.state = {
       hoveredDate: null,
+      dateDots: {}
     }
+  }
+
+  static contextType = Context;
+
+  componentDidMount() {
+    this.determineWorkoutDots();
+  }
+
+  determineWorkoutDots = () => {
+    const searchMonth = this.context.selectedDate.getMonth() + 1;
+
+    let dateDots = {}
+
+    WorkoutsApiService.getWorkoutsByMonth(searchMonth)
+      .then(res => {
+        let count = res.length;
+        for (let i = 0; i < count; i++) {
+          const workoutDay = res[i].workout_date.slice(8, 10)
+          if (workoutDay in dateDots) {
+            if (dateDots[workoutDay] === '. . . ' || dateDots[workoutDay] === '. . . +')
+              dateDots[workoutDay] = '. . . +'
+            else
+              dateDots[workoutDay] += '. '
+          } else {
+            dateDots[workoutDay] = '. '
+          }
+        }
+
+        this.setState({ dateDots });
+      });
   }
 
   render() {
@@ -66,6 +100,7 @@ export default class Month extends React.Component {
       <Day
         key={dayIndex}
         fullDate={fullDate}
+        dots={this.state.dateDots}
         selected={date === this.props.date}
         hovering={date === hoverDate}
         onMouseEnter={this.handleMouseEnter}

@@ -7,12 +7,25 @@ export default function WorkoutHeader(props) {
   const date = new Date();
   const context = useContext(Context);
 
-  const currentDate = date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString().padStart(2, 0) +
-    '-' + date.getDate().toString().padStart(2, 0);
+  const currentDate = convertDate(date);
 
   const currentTime = + date.getHours() + ":"
     + date.getMinutes() + ":"
     + date.getSeconds();
+
+  function determineDate() {
+    if (props.workout.workout_date) {
+      const thisDate = new Date(props.workout.workout_date)
+      return convertDate(thisDate);
+    }
+    return currentDate;
+  }
+
+  function convertDate(date) {
+    const newDate = date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString().padStart(2, 0) +
+      '-' + date.getDate().toString().padStart(2, 0);
+    return newDate;
+  }
 
   return (
     <section className="workout-view-header">
@@ -22,6 +35,7 @@ export default function WorkoutHeader(props) {
         type="text"
         className="workout-view-title"
         placeholder="Workout Title"
+        defaultValue={props.workout.title}
         onChange={props.onChange}
       />
       <div className="time-date-container">
@@ -32,7 +46,7 @@ export default function WorkoutHeader(props) {
           className="workout-view-time-date"
           placeholder="time"
           onChange={props.onChange}
-          value={currentTime} //need to adjust this to consider editing
+          defaultValue={currentTime} //need to adjust this to consider editing
         />
         <label htmlFor="workoutDate"></label>
         <input
@@ -41,7 +55,7 @@ export default function WorkoutHeader(props) {
           className="workout-view-time-date"
           placeholder="date"
           onChange={props.onChange}
-          value={currentDate}
+          value={determineDate()}
         />
       </div>
     </section>

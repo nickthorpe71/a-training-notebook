@@ -3,20 +3,53 @@ import Context from '../../MainContext';
 import WorkoutHeader from './WorkoutHeader/WorkoutHeader'
 import ExerciseTable from './ExerciseTable/ExerciseTable'
 import TokenService from '../../services/token-service'
+import WorkoutsApiService from '../../services/workouts-api-service'
 import './WorkoutView.css';
 
 export default class WorkoutView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      numSetsPer: 4,
-      numExercises: 6,
+      numSetsPer: 0,
+      numExercises: 0,
       workoutTitle: '',
       workoutTime: '',
       notes: '',
       workoutDate: new Date(),
       currentWorkout: {},
     };
+  }
+
+  static contextType = Context;
+
+  componentWillMount = () => {
+    if (this.context.editing) {
+      const workout_id = this.props.match.params.workoutId;
+
+      const date = new Date();
+      const timestamp = date.getTime();
+
+      WorkoutsApiService.getWorkoutById(workout_id)
+        .then(workout => {
+          const numExercises = workout.exercises.length;
+          let numSets = 0;
+
+          workout.exercises.forEach(exercise => {
+            if (exercise.sets.length > numSets)
+              numSets = exercise.sets.length
+          })
+
+          this.setState({
+            numSetsPer: numSets,
+            numExercises: numExercises,
+            workoutTitle: workout.title,
+            workoutTime: timestamp,
+            workoutDate: workout.workout_date,
+            currentWorkout: workout
+          })
+
+        })
+    }
   }
 
   handleSubmit = (event) => {
@@ -55,31 +88,21 @@ export default class WorkoutView extends React.Component {
     console.log(workoutObj)
   }
 
-  static contextType = Context;
-
-  componentWillMount() {
-    if (this.context.editing) {
-      //pull from database instead of from context
-      const currentWorkout = this.context.matchingWorkouts.find(workout => workout.workoutId == this.props.match.params.workoutId);
-      this.setState({
-        numSetsPer: currentWorkout.numSetsPer,
-        numExercises: currentWorkout.numExercises,
-        workoutTitle: currentWorkout.workoutTitle,
-        workoutTime: currentWorkout.workoutTime,
-        workoutDate: currentWorkout.workoutDate,
-        currentWorkout: currentWorkout
-      })
-    }
-  }
-
   getNotes = () => {
     return this.state.currentWorkout.notes;
+  }
+
+  getSetsCount = () => {
+    return this.state.numSetsPer;
+  }
+
+  getExerciseCount = () => {
+    return this.state.numExercises;
   }
 
   handlieBackButton = () => {
     console.log(this.getNotes());
   }
-
 
   handleChange = (event) => {
     event.preventDefault();
@@ -109,8 +132,8 @@ export default class WorkoutView extends React.Component {
               name="numSetsPer"
               type="number"
               className="workout-num-sets"
-              placeholder={this.state.numSetsPer}
-              defaultValue={this.state.numSetsPer}
+              placeholder={this.getSetsCount()}
+              value={this.getSetsCount()}
               onChange={this.handleChange}
             />
             <label htmlFor="numExercises">Exercises</label>
@@ -118,15 +141,15 @@ export default class WorkoutView extends React.Component {
               name="numExercises"
               type="number"
               className="workout-num-exercises"
-              placeholder={this.state.numExercises}
-              defaultValue={this.state.numExercises}
+              placeholder={this.getExerciseCount()}
+              value={this.getExerciseCount()}
               onChange={this.handleChange}
             />
           </div>
           <ExerciseTable
             onChange={this.handleChange}
-            sets={this.state.numSetsPer}
-            exercises={this.state.numExercises}
+            sets={this.getSetsCount()}
+            exercises={this.getExerciseCount()}
             workout={this.state.currentWorkout}
           />
           <section className="workout-view-footer">
