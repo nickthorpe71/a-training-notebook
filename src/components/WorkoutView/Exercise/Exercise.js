@@ -16,6 +16,7 @@ export default function Exercise(props) {
       <Set
         key={i}
         setNumber={i}
+        thisSet={props.exercise.sets[i]}
         exerciseNumber={props.exerciseNumber}
         onChange={props.onChange}
       />
@@ -30,6 +31,7 @@ export default function Exercise(props) {
           className="exercise-input"
           name={`exercise${props.exerciseNumber}`}
           type="text" placeholder={exercisePalceholder}
+          value={props.exercise.title}
           onChange={props.onChange} />
       </td>
       {sets}

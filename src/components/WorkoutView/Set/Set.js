@@ -10,6 +10,16 @@ export default function Set(props) {
     placeholderReps = 'Reps';
   }
 
+  function getWeight() {
+    if (props.thisSet && 'weight' in props.thisSet)
+      return props.thisSet.weight;
+  }
+
+  function getReps() {
+    if (props.thisSet && 'reps' in props.thisSet)
+      return props.thisSet.reps;
+  }
+
   return (
     <td className="set-col">
       <div>
@@ -19,6 +29,7 @@ export default function Set(props) {
             className="set-input"
             name={`weight${props.exerciseNumber}_${props.setNumber}`}
             type="text" placeholder={placeholderWeight}
+            value={getWeight()}
             onChange={props.onChange}
           />
         </div>
@@ -28,6 +39,7 @@ export default function Set(props) {
             className="set-input"
             name={`reps${props.exerciseNumber}_${props.setNumber}`}
             type="text" placeholder={placeholderReps}
+            value={getReps()}
             onChange={props.onChange}
           />
         </div>

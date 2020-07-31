@@ -27,7 +27,7 @@ export default function Day(props) {
       onMouseLeave={props.onMouseLeave}
     >
       {date}
-      <div>
+      <div className='dot'>
         {props.dots[date]}
       </div>
     </button>

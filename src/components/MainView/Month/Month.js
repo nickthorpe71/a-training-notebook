@@ -4,6 +4,9 @@ import WorkoutsApiService from '../../../services/workouts-api-service';
 import Day from '../Day/Day'
 import Context from '../../../MainContext';
 import './Month.css'
+import { Icon, InlineIcon } from '@iconify/react';
+import circleFill from '@iconify/icons-bi/circle-fill';
+
 import { isCompositeComponent } from 'react-dom/test-utils';
 
 export default class Month extends React.Component {
@@ -32,15 +35,24 @@ export default class Month extends React.Component {
         let count = res.length;
         for (let i = 0; i < count; i++) {
           const workoutDay = res[i].workout_date.slice(8, 10)
-          if (workoutDay in dateDots) {
-            if (dateDots[workoutDay] === '. . . ' || dateDots[workoutDay] === '. . . +')
-              dateDots[workoutDay] = '. . . +'
-            else
-              dateDots[workoutDay] += '. '
-          } else {
-            dateDots[workoutDay] = '. '
-          }
+          dateDots[workoutDay] = <Icon icon={circleFill} />
+
+          // if (workoutDay in dateDots) {
+          //   if (dateDots[workoutDay] === '. . . ' || dateDots[workoutDay] === '. . . +')
+          //     dateDots[workoutDay] = '. . . +'
+          //   else
+          //     dateDots[workoutDay] += '. '
+          // } else {
+          //   dateDots[workoutDay] = '. '
+          // }
+          // '&nbsp;'
         }
+
+        for (let i = 1; i < 31; i++) {
+          if (!(i in dateDots)) {
+            dateDots[i] = '';
+          }
+        } //runthrouhg all days and add '&nbsp;' to non workout days
 
         this.setState({ dateDots });
       });
