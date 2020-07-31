@@ -12,7 +12,7 @@ export default class Calendar extends Component {
   }
 
   render() {
-    const { selectedDate, onDayClick } = this.context;
+    const { selectedDate } = this.context;
 
     const months = [
       "January",

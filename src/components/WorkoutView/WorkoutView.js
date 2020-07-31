@@ -73,9 +73,6 @@ export default class WorkoutView extends React.Component {
       this.state.workoutDate.getDate()
     ).toUTCString()
 
-    console.log('1111', modDate)
-    console.log('22222', this.state.workoutDate)
-
     const workoutObj = {
       user_id: TokenService.getUserId(),
       title: this.state.workoutTitle,
@@ -87,7 +84,7 @@ export default class WorkoutView extends React.Component {
 
     for (const [key, value] of Object.entries(this.state)) {
       if (key.includes('exercise')) {
-        console.log(key, key.charAt(8));
+        // console.log(key, key.charAt(8));
         const newExercise = {
           title: value,
           sets: []
@@ -118,15 +115,13 @@ export default class WorkoutView extends React.Component {
     }
 
     this.props.history.push('/');
+
   }
 
   setDate = (date) => {
-    const newDate = date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString().padStart(2, 0) +
-      '-' + date.getDate().toString().padStart(2, 0);
-
-    console.log(newDate, this.state.workoutDate)
+    // const newDate = date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString().padStart(2, 0) +
+    //   '-' + date.getDate().toString().padStart(2, 0);
     this.setState({ workoutDate: date });
-    console.log(newDate, this.state.workoutDate)
   }
 
   getNotes = () => {

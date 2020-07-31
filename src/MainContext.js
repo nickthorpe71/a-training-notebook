@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import TokenService from './services/token-service';
 import WorkoutsApiService from './services/workouts-api-service';
-import store from './components/store';
 
 const MainContext = React.createContext({})
 

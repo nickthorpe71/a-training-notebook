@@ -28,7 +28,7 @@ export default function Day(props) {
     >
       {date}
       <div className='dot'>
-        {props.dots[date]}
+        {props.dots[String(date).padStart(2, '0')]}
       </div>
     </button>
   );

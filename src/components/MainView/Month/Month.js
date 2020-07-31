@@ -4,10 +4,8 @@ import WorkoutsApiService from '../../../services/workouts-api-service';
 import Day from '../Day/Day'
 import Context from '../../../MainContext';
 import './Month.css'
-import { Icon, InlineIcon } from '@iconify/react';
+import { Icon } from '@iconify/react';
 import circleFill from '@iconify/icons-bi/circle-fill';
-
-import { isCompositeComponent } from 'react-dom/test-utils';
 
 export default class Month extends React.Component {
   constructor(props) {
@@ -34,25 +32,15 @@ export default class Month extends React.Component {
       .then(res => {
         let count = res.length;
         for (let i = 0; i < count; i++) {
-          const workoutDay = res[i].workout_date.slice(8, 10)
-          dateDots[workoutDay] = <Icon icon={circleFill} />
-
-          // if (workoutDay in dateDots) {
-          //   if (dateDots[workoutDay] === '. . . ' || dateDots[workoutDay] === '. . . +')
-          //     dateDots[workoutDay] = '. . . +'
-          //   else
-          //     dateDots[workoutDay] += '. '
-          // } else {
-          //   dateDots[workoutDay] = '. '
-          // }
-          // '&nbsp;'
+          const workoutDay = String(res[i].workout_date.slice(8, 10)).padStart(2, '0')
+          dateDots[workoutDay] = <Icon color={'aqua'} icon={circleFill} />
         }
-
         for (let i = 1; i < 31; i++) {
-          if (!(i in dateDots)) {
-            dateDots[i] = '';
+          const iKey = String(i).padStart(2, '0');
+          if (!(iKey in dateDots)) {
+            dateDots[iKey] = <Icon color={'white'} icon={circleFill} />;
           }
-        } //runthrouhg all days and add '&nbsp;' to non workout days
+        }
 
         this.setState({ dateDots });
       });

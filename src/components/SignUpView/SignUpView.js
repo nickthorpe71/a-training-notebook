@@ -1,8 +1,6 @@
 import React from 'react';
 import './SignUpView.css';
 import { Link } from 'react-router-dom';
-import TokenService from '../../services/token-service';
-import AuthApiService from '../../services/auth-api-service';
 
 export default function SignUpView(props) {
 
@@ -23,7 +21,7 @@ export default function SignUpView(props) {
           <label className="input-title" htmlFor="password-repeat"><b>Confirm</b></label>
           <input className="underline-input" type="password" name="password-repeat" required />
         </section>
-        <p>By creating an account you agree to our <a href="#">Terms Privacy</a>.</p>
+        <p>By creating an account you agree to our <a href="https://app.termly.io/document/privacy-policy/f476937d-b4d9-4a9a-802d-31e0c1100d24">Terms Privacy</a>.</p>
         <section>
           <Link to='/landing'>
             <button
