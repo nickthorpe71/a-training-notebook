@@ -31,6 +31,7 @@
 .workout-preview-list{
   width: 60%;
   text-align: center;
+  margin-top: 0.65rem; /* likely need to remove this later */
 }
 
 .workout-preview-title-container{

@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom'
 import Context from '../../../MainContext';
 import WorkoutSummary from '../WorkoutSummary/WorkoutSummary'
+import { IoIosAddCircleOutline } from "react-icons/io";
 
 export default function DayPreview(props) {
 
@@ -37,7 +38,7 @@ export default function DayPreview(props) {
       </ul>
       <div className="add-button">
         <Link to='/workout/new'>
-          <button>+</button>
+          <button className="lit-button"><IoIosAddCircleOutline></IoIosAddCircleOutline></button>
         </Link>
       </div>
     </section>
