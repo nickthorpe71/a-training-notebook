@@ -23,7 +23,10 @@ export default function DayPreview(props) {
   function renderWorkouts() {
     const { matchingWorkouts = [] } = context;
     return matchingWorkouts.map((workout, index) =>
-      <WorkoutSummary key={index} workoutTitle={workout.title} workoutId={workout.id} />
+      <WorkoutSummary
+        key={index}
+        workoutTitle={workout.title}
+        workoutId={workout.id} />
     );
   }
 

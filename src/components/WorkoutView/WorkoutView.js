@@ -66,12 +66,15 @@ export default class WorkoutView extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
+    const modDate = new Date().toUTCString();
 
-    const modDate = new Date(
-      this.state.workoutDate.getFullYear(),
-      this.state.workoutDate.getMonth(),
-      this.state.workoutDate.getDate()
-    ).toUTCString()
+    if (this.state.workoutDate) {
+      modDate = new Date(
+        this.state.workoutDate.getFullYear(),
+        this.state.workoutDate.getMonth(),
+        this.state.workoutDate.getDate()
+      ).toUTCString()
+    }
 
     const workoutObj = {
       user_id: TokenService.getUserId(),
