@@ -9,9 +9,9 @@ export default function WorkoutHeader(props) {
 
   const currentDate = convertDate(date);
 
-  const currentTime = + date.getHours() + ":"
-    + date.getMinutes() + ":"
-    + date.getSeconds();
+  function getTime() {
+    return date.getHours() + ":" + date.getMinutes()
+  }
 
   function determineDate() {
     if (props.workout.workout_date) {
@@ -46,7 +46,7 @@ export default function WorkoutHeader(props) {
           className="workout-view-time-date"
           placeholder="time"
           onChange={props.onChange}
-          defaultValue={currentTime} //need to adjust this to consider editing
+          defaultValue={getTime()} //need to adjust this to consider editing
         />
         <label htmlFor="workoutDate"></label>
         <input

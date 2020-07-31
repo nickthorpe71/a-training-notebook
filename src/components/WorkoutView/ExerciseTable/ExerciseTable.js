@@ -7,14 +7,25 @@ export default function ExerciseTable(props) {
 
   let exerciseRows = [];
 
+
   for (let i = 0; i < props.exercises; i++) {
+    let thisExercise = {
+      title: '',
+      sets: []
+    };
+
+    if (props.workout && props.workout.exercises && props.workout.exercises[i]) {
+      thisExercise = props.workout.exercises[i];
+    }
+
+
     exerciseRows.push(
       <Exercise
         key={i}
         exerciseNumber={i}
         onChange={props.onChange}
         sets={props.sets}
-        exercise={props.workout.exercises[i]}
+        exercise={thisExercise}
       />
     );
   }

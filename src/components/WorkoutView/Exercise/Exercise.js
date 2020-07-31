@@ -23,6 +23,11 @@ export default function Exercise(props) {
     )
   }
 
+  function getTitle() {
+    if (props.exercise && props.exercise.title)
+      return props.exercise.title;
+  }
+
   return (
     <tr className="exercise-row">
       <td className="exercise-col">
@@ -31,7 +36,7 @@ export default function Exercise(props) {
           className="exercise-input"
           name={`exercise${props.exerciseNumber}`}
           type="text" placeholder={exercisePalceholder}
-          value={props.exercise.title}
+          value={getTitle()}
           onChange={props.onChange} />
       </td>
       {sets}

@@ -43,6 +43,23 @@ const WorkoutsApiService = {
           : res.json()
       )
   },
+
+  postWorkout(newWorkout) {
+    const userId = Number(TokenService.getUserId());
+    return fetch(`${config.API_ENDPOINT}/workouts/${userId}?workout_id=${id}`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        'Authorization': `Bearer ${TokenService.getAuthToken()}`
+      },
+      body: JSON.stringify(newWorkout),
+    })
+      .then(res =>
+        (!res.ok)
+          ? res.json().then(e => Promise.reject(e))
+          : res.json()
+      )
+  }
 }
 
 export default WorkoutsApiService;

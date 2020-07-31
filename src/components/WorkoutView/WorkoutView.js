@@ -22,8 +22,8 @@ export default class WorkoutView extends React.Component {
 
   static contextType = Context;
 
-  componentWillMount = () => {
-    if (this.context.editing) {
+  componentDidMount = () => {
+    if (this.props.match.params.workoutId !== 'new') {
       const workout_id = this.props.match.params.workoutId;
 
       const date = new Date();
@@ -49,6 +49,11 @@ export default class WorkoutView extends React.Component {
           })
 
         })
+    } else {
+      this.setState({
+        numExercises: 6,
+        numSetsPer: 4,
+      })
     }
   }
 
@@ -85,7 +90,14 @@ export default class WorkoutView extends React.Component {
         workoutObj.exercises[key.charAt(4)].sets[key.charAt(6)].reps = value;
       }
     }
-    console.log(workoutObj)
+
+    if (this.props.match.params.workoutId === 'new') {
+      console.log('we are posting a new workout')
+      console.log(workoutObj)
+    } else {
+      console.log('we are editing a workout')
+      console.log(workoutObj)
+    }
   }
 
   getNotes = () => {
