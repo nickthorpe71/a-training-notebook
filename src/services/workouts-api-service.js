@@ -45,8 +45,7 @@ const WorkoutsApiService = {
   },
 
   postWorkout(newWorkout) {
-    const userId = Number(TokenService.getUserId());
-    return fetch(`${config.API_ENDPOINT}/workouts/${userId}?workout_id=${id}`, {
+    return fetch(`${config.API_ENDPOINT}/workouts`, {
       method: "POST",
       headers: {
         "content-type": "application/json",

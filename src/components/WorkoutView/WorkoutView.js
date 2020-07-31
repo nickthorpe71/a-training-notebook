@@ -60,18 +60,24 @@ export default class WorkoutView extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault();
 
+    const modDate = new Date(
+      this.state.workoutDate.getFullYear(),
+      this.state.workoutDate.getMonth(),
+      this.state.workoutDate.getDate()
+    )
+
     const workoutObj = {
-      user_id: TokenService.getUserId,
+      user_id: TokenService.getUserId(),
       title: this.state.workoutTitle,
       notes: this.state.notes,
       time: this.state.workoutTime,
-      date: this.state.workoutDate,
+      date: modDate,
       exercises: []
     }
 
     for (const [key, value] of Object.entries(this.state)) {
       if (key.includes('exercise')) {
-        // console.log(key, key.charAt(8));
+        console.log(key, key.charAt(8));
         const newExercise = {
           title: value,
           sets: []
@@ -84,16 +90,18 @@ export default class WorkoutView extends React.Component {
           weight: value,
           reps: 0,
         }
-        workoutObj.exercises[key.charAt(6)].sets.push(newSet);
+        if (workoutObj.exercises && 'sets' in workoutObj.exercises[key.charAt(6)])
+          workoutObj.exercises[key.charAt(6)].sets.push(newSet);
       }
       if (key.includes('reps')) {
-        workoutObj.exercises[key.charAt(4)].sets[key.charAt(6)].reps = value;
+        if (workoutObj.exercises && 'reps' in workoutObj.exercises[key.charAt(4)].sets[key.charAt(6)])
+          workoutObj.exercises[key.charAt(4)].sets[key.charAt(6)].reps = value;
       }
     }
 
     if (this.props.match.params.workoutId === 'new') {
       console.log('we are posting a new workout')
-      console.log(workoutObj)
+      WorkoutsApiService.postWorkout(workoutObj);
     } else {
       console.log('we are editing a workout')
       console.log(workoutObj)
