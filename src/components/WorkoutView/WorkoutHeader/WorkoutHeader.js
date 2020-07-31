@@ -7,7 +7,7 @@ export default function WorkoutHeader(props) {
   const date = new Date();
   const context = useContext(Context);
 
-  const currentDate = convertDate(date);
+  // const currentDate = convertDate(date);
 
   function getTime() {
     return date.getHours() + ":" + date.getMinutes()
@@ -19,7 +19,7 @@ export default function WorkoutHeader(props) {
       const thisDate = new Date(props.workout.workout_date)
       return convertDate(thisDate);
     }
-    return currentDate;
+    return convertDate(context.selectedDate);
   }
 
   function convertDate(date) {
