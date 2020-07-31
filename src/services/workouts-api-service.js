@@ -58,6 +58,18 @@ const WorkoutsApiService = {
           ? res.json().then(e => Promise.reject(e))
           : res.json()
       )
+  },
+
+  deleteWorkout(workout_id) {
+    const user_id = Number(TokenService.getUserId());
+    return fetch(`${config.API_ENDPOINT}/workouts/${user_id}`, {
+      method: "DELETE",
+      headers: {
+        "content-type": "application/json",
+        'Authorization': `Bearer ${TokenService.getAuthToken()}`
+      },
+      body: JSON.stringify({ user_id, workout_id }),
+    })
   }
 }
 

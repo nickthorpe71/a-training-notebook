@@ -15,6 +15,7 @@ export default function WorkoutHeader(props) {
 
   function determineDate() {
     if (props.workout.workout_date) {
+      console.log(props.workout.workout_date)
       const thisDate = new Date(props.workout.workout_date)
       return convertDate(thisDate);
     }

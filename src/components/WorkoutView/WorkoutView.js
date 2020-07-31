@@ -57,6 +57,12 @@ export default class WorkoutView extends React.Component {
     }
   }
 
+  handleDeleteClick = (event) => {
+    event.preventDefault();
+    WorkoutsApiService.deleteWorkout(this.state.currentWorkout.id);
+    this.props.history.push('/');
+  }
+
   handleSubmit = (event) => {
     event.preventDefault();
 
@@ -64,7 +70,7 @@ export default class WorkoutView extends React.Component {
       this.state.workoutDate.getFullYear(),
       this.state.workoutDate.getMonth(),
       this.state.workoutDate.getDate()
-    )
+    ).toUTCString()
 
     const workoutObj = {
       user_id: TokenService.getUserId(),
@@ -106,6 +112,8 @@ export default class WorkoutView extends React.Component {
       console.log('we are editing a workout')
       console.log(workoutObj)
     }
+
+    this.props.history.push('/');
   }
 
   getNotes = () => {
@@ -121,7 +129,7 @@ export default class WorkoutView extends React.Component {
   }
 
   handlieBackButton = () => {
-    console.log(this.getNotes());
+    this.props.history.push('/');
   }
 
   handleChange = (event) => {
@@ -132,6 +140,16 @@ export default class WorkoutView extends React.Component {
       ...this.state,
       [event.target.name]: value
     });
+  }
+
+  renderDeleteButton = () => {
+    return (
+      <button
+        className="unlit-button"
+        onClick={this.handleDeleteClick}
+      >delete
+      </button>
+    )
   }
 
   render() {
@@ -180,6 +198,9 @@ export default class WorkoutView extends React.Component {
               >back
               </button>
               <button className="lit-button">save</button>
+              {this.props.match.params.workoutId !== 'new'
+                ? this.renderDeleteButton()
+                : <></>}
             </div>
             <textarea
               name="notes"
