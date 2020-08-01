@@ -7,7 +7,6 @@ export default function ExerciseTable(props) {
 
   let exerciseRows = [];
 
-
   for (let i = 0; i < props.exercises; i++) {
     let thisExercise = {
       title: '',
