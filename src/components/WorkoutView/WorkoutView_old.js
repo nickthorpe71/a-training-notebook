@@ -60,22 +60,22 @@ export default class WorkoutView extends React.Component {
     }
   }
 
-  // setExercisesAndSetsInState = (exercises) => {
-  //   const allKeys = {};
+  setExercisesAndSetsInState = (exercises) => {
+    const allKeys = {};
 
-  //   exercises.forEach((exercise, indexEx) => {
-  //     allKeys[`exercise${indexEx}`] = exercise.title;
-  //     exercise.sets.forEach((set, indexSet) => {
-  //       allKeys[`weight${indexEx}_${indexSet}`] = set.weight;
-  //       allKeys[`reps${indexEx}_${indexSet}`] = set.reps;
-  //     });
-  //   });
+    exercises.forEach((exercise, indexEx) => {
+      allKeys[`exercise${indexEx}`] = exercise.title;
+      exercise.sets.forEach((set, indexSet) => {
+        allKeys[`weight${indexEx}_${indexSet}`] = set.weight;
+        allKeys[`reps${indexEx}_${indexSet}`] = set.reps;
+      });
+    });
 
-  //   this.setState({
-  //     ...this.state,
-  //     ...allKeys
-  //   });
-  // }
+    this.setState({
+      ...this.state,
+      ...allKeys
+    });
+  }
 
   handleDeleteClick = (event) => {
     event.preventDefault();
@@ -171,83 +171,15 @@ export default class WorkoutView extends React.Component {
     this.props.history.push('/');
   }
 
-  //when the exercises
-
   handleChange = (event) => {
     event.preventDefault();
     const value = event.target.value;
-    const name = event.target.name;
-
-    const newWorkout = this.state.currentWorkout;
-    let numExercises = this.state.numExercises;
-    let numSetsPer = this.state.numExercises;
-    let workoutTitle = this.state.workoutTitle;
-    let workoutTime = this.state.workoutTime;
-    let notes = this.state.notes;
-    let workoutDate = this.state.workoutDate;
-
-    const emptySet = {
-      id: -1,
-      exercise_id: 0,
-      setNum: 0,
-      weight: '',
-      reps: 0,
-    }
-
-    const emptySetsArr = [];
-
-    for (let i = 0; i < this.state.numSetsPer; i++) {
-      const innerSet = emptySet;
-      innerSet.setNum = i;
-      emptySetsArr.push(innerSet);
-    }
-
-    const emptyExercise = {
-      id: -1,
-      title: '',
-      sets: emptySetsArr
-    }
-
-    //if name includes numExercises then make sure there are enough exercises in the current workouts exercise array
-    //if name includes numSetsPer then make sure there are enough sets in each exercise of current workouts 
-
-    if (name.includes('exercise'))
-      newWorkout.exercises[name.charAt(8)].title = value;
-
-    if (name.includes('weight'))
-      newWorkout.exercises[name.charAt(6)].sets[name.charAt(8)].weight = value;
-
-    if (name.includes('numExercises')) {
-      while (newWorkout.exercises.length > value) {
-        newWorkout.exexercises.pop();
-      }
-      while (newWorkout.exercises.length < value) {
-        newWorkout.exercises.push(emptyExercise);
-      }
-    }
-
-    if (name.includes('numSetsPer')) {
-      newWorkout.exercises.forEach((exercise, index) => {
-        while (exercise.sets.length < this.state.numSetsPer) {
-          const innerSet = emptySet;
-          //innerSet.exercise_id //this is going to be hard to identify when the exercise has not been added to the datebase yet
-          //time to simplify...
-          //
-          //
-          exercise.sets.push()
-        }
-      })
-    }
+    console.log(event.target.value)
+    console.log(event.target.name)
 
     this.setState({
       ...this.state,
-      numExercises,
-      numSetsPer,
-      workoutTitle,
-      workoutTime,
-      notes,
-      workoutDate,
-      currentWorkout: newWorkout
+      [event.target.name]: value
     });
   }
 

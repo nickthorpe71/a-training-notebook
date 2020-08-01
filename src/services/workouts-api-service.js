@@ -70,6 +70,17 @@ const WorkoutsApiService = {
       },
       body: JSON.stringify({ user_id, workout_id }),
     })
+  },
+
+  updateWorkout(workout_id, updatedWorkout) {
+    return fetch(`${config.API_ENDPOINT}/workouts/?workout_id=${workout_id}`, {
+      method: "PATCH",
+      headers: {
+        'content-type': 'application/json',
+        'authorization': `Bearer ${TokenService.getAuthToken()}`
+      },
+      body: JSON.stringify(updatedWorkout),
+    })
   }
 }
 

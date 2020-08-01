@@ -18,7 +18,6 @@ export default function ExerciseTable(props) {
       thisExercise = props.workout.exercises[i];
     }
 
-
     exerciseRows.push(
       <Exercise
         key={i}

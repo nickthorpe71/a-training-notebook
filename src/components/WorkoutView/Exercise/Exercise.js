@@ -24,8 +24,10 @@ export default function Exercise(props) {
   }
 
   function getTitle() {
-    if (props.exercise && props.exercise.title)
-      return props.exercise.title;
+    console.log(props.exercise.title)
+    return props.exercise.title;
+    // if (props.exercise && props.exercise.title)
+    //   return props.exercise.title;
   }
 
   return (
